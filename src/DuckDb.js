@@ -28,23 +28,33 @@ async function insertThenQuery(db,querySql) {
 
   //let result = query.toArray();
 
-  const schema = query.schema.fields.map(({ name, type }) => ({
-    name,
-    type: String(type),
-    databaseType: String(type)
-  }));
-  
-  console.log("Schema");
-  console.log(schema)
+  // const schema = query.schema.fields.map(({ name, type }) => ({
+  //   name,
+  //   type: String(type),
+  //   databaseType: String(type)
+  // }));
+  function isScalar(value) {
+    return (/string|number|boolean|bigint/).test(typeof value);
+  }
+  // console.log("Schema");
+  // console.log(schema)
   let rows = query.toArray()
   rows = rows.map(row => {
     return Object.fromEntries(
       Object.entries(row).map(([key, value]) => {
-        if (typeof value === 'bigint') {
+
+        if ( !isScalar(value)> 1) {
+          value = value[0];
+        }
+        if (typeof value === 'BigInt') {
           return [key, value.toString()];
         } else {
           return [key, value];
         }
+
+
+
+
       })
     );
   });

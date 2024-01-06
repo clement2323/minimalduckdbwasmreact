@@ -9,11 +9,8 @@ const TableauResultat = () => {
 
   const doTest = async () => {
     var result = await DuckDb.test(`
-    SELECT enquete, semaine, trimestre, sum(nfa) as nfa, sum(realise) as realise, sum(reussis) as reussis
+    SELECT *
     FROM 'https://minio.lab.sspcloud.fr/cguillo/donnees_enq_concatennees.parquet'
-    WHERE enquete  = 'EEC'
-    GROUP BY enquete,trimestre,semaine
-    ORDER BY enquete,trimestre,semaine
     `);
     setRows(result);
   };
@@ -21,8 +18,6 @@ const TableauResultat = () => {
   useEffect(() => {
     doTest();
   }, []);
-
-  const theme = useTheme();
 
   const columns = [
     { field: "annee", headerName: "Année", flex: 0.5 },

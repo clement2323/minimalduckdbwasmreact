@@ -8,7 +8,13 @@ const TableauResultat = () => {
   const [rows, setRows] = useState([]);
 
   const doTest = async () => {
-    var result = await DuckDb.test();
+    var result = await DuckDb.test(`
+    SELECT enquete, semaine, trimestre, sum(nfa) as nfa, sum(realise) as realise, sum(reussis) as reussis
+    FROM 'https://minio.lab.sspcloud.fr/cguillo/donnees_enq_concatennees.parquet'
+    WHERE enquete  = 'EEC'
+    GROUP BY enquete,trimestre,semaine
+    ORDER BY enquete,trimestre,semaine
+    `);
     setRows(result);
   };
 
@@ -23,7 +29,7 @@ const TableauResultat = () => {
     { field: "dechets", headerName: "Déchets" },
     {
       field: "dep",
-      headerName: "Départ",
+      headerName: "Département",
       flex: 1,
       cellClassName: "name-column--cell",
     },

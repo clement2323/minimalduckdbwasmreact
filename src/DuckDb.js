@@ -20,11 +20,12 @@ async function instantiate(duckdb) {
   return db;
 }
 
-async function insertThenQuery(db) {
+async function insertThenQuery(db,querySql) {
   const c = await db.connect();
   
  
-  let query = await c.query(`SELECT * FROM 'https://minio.lab.sspcloud.fr/cguillo/donnees_enq_concatennees.parquet'`)
+  let query = await c.query(querySql)
+
   //let result = query.toArray();
 
   const schema = query.schema.fields.map(({ name, type }) => ({
@@ -63,9 +64,9 @@ async function insertThenQuery(db) {
 }
 
 export default {
-  test: async function () {
+  test: async function (querySql) {
     var db = await instantiate(duckdb),
-      result = await insertThenQuery(db);
+      result = await insertThenQuery(db,querySql);
 
     return result;
   }

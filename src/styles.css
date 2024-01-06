@@ -1,0 +1,15 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  table {
+    width: 150px;
+    margin: 0 auto;
+  }
+  
+  td {
+    text-align: left;
+    width: 10px;
+  }
+  

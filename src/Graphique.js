@@ -22,9 +22,10 @@ const LineChart = () => {
     // transform Uint32Array to number
     result = transformResult(result);    
       
+    // C'est une rustine je me prémunis de la double execution..
     setData(prevData => {
       // Vérifie si la clé existe déjà
-      if (prevData.some(item => item.id === "EEC")) {
+      if (prevData.some(item => item.id === id)) {
         // Si la clé existe déjà, retourne le tableau de données précédent sans modifications
         return prevData;
       } else {

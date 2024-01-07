@@ -33,9 +33,7 @@ async function insertThenQuery(db,querySql) {
   //   type: String(type),
   //   databaseType: String(type)
   // }));
-  function isScalar(value) {
-    return (/string|number|boolean|bigint/).test(typeof value);
-  }
+
   // console.log("Schema");
   // console.log(schema)
   let rows = query.toArray()
@@ -43,9 +41,6 @@ async function insertThenQuery(db,querySql) {
     return Object.fromEntries(
       Object.entries(row).map(([key, value]) => {
 
-        if ( !isScalar(value)> 1) {
-          value = value[0];
-        }
         if (typeof value === 'BigInt') {
           return [key, value.toString()];
         } else {

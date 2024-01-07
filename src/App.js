@@ -8,8 +8,8 @@ function App() {
     <div className="App">
       <h1>Les résultats !! </h1>
 
+      <LineChart />
       <TableauResultat />
-      
     </div>
   );
 }
